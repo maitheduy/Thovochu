@@ -1,0 +1,890 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Xác Suất Thơ | Học Thống Kê Qua Lục Bát</title>
+  <style>
+    /* ===== RESET & BASE ===== */
+    * { margin: 0; padding: 0; box-sizing: border-box; }
+    
+    @import url('https://fonts.googleapis.com/css2?family=Be+Vietnam+Pro:wght@300;400;500;600&family=Merriweather:ital,wght@0,400;1,400&display=swap');
+    
+    :root {
+      --primary: #4E342E;
+      --secondary: #8D6E63;
+      --accent: #1976D2;
+      --light: #FFF8E1;
+      --cream: #FFECB3;
+      --sky: #87CEEB;
+      --green: #6B8E23;
+      --text: #3E2723;
+      --text-light: #795548;
+      --paper: #fdf5e6;
+    }
+    
+    /* CẤM CHỮ ĐẶM TOÀN BỘ */
+    body, h1, h2, h3, h4, h5, h6, p, span, div, strong, b {
+      font-weight: 400 !important;
+    }
+    .section-title h2, .poem-title, .logo-text h1 {
+      font-weight: 500 !important;
+    }
+    
+    body {
+      font-family: 'Be Vietnam Pro', sans-serif;
+      background: linear-gradient(180deg, var(--sky) 0%, #98D8C8 40%, var(--green) 70%, #4A6B3F 100%);
+      background-attachment: fixed;
+      color: var(--text);
+      line-height: 1.7;
+      min-height: 100vh;
+    }
+
+    /* ===== HEADER ===== */
+    header {
+      background: linear-gradient(135deg, var(--primary), var(--secondary), #A1887F);
+      border-bottom: 6px solid #D7CCC8;
+      box-shadow: 0 4px 15px rgba(0,0,0,0.25);
+      position: sticky;
+      top: 0;
+      z-index: 1000;
+    }
+    .header-content {
+      max-width: 1100px;
+      margin: 0 auto;
+      padding: 0.8rem 1.5rem;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      flex-wrap: wrap;
+      gap: 0.8rem;
+    }
+    .logo { display: flex; align-items: center; gap: 0.8rem; color: #FFF8E1; }
+    .logo-icon { font-size: 2rem; }
+    .logo-text h1 { font-size: 1.4rem; letter-spacing: 1px; }
+    .logo-text p { font-size: 0.8rem; opacity: 0.95; font-style: italic; margin-top: -3px; }
+    nav a {
+      color: #FFF8E1; margin-left: 1rem; text-decoration: none; transition: all 0.3s;
+      padding: 0.3rem 0.7rem; border-radius: 15px; font-size: 0.9rem;
+    }
+    nav a:hover { background: rgba(255,255,255,0.2); transform: translateY(-2px); }
+
+    /* ===== NOTICE BANNER ===== */
+    .notice-banner {
+      background: linear-gradient(90deg, #64B5F6, #1976D2, #0D47A1);
+      border: 2px dashed #0D47A1;
+      border-radius: 12px;
+      padding: 0.8rem 1.2rem;
+      margin: 1rem auto;
+      max-width: 900px;
+      text-align: center;
+      box-shadow: 0 3px 12px rgba(0,0,0,0.2);
+      font-size: 0.9rem;
+      color: #FFF8E1;
+      font-style: italic;
+    }
+
+    /* ===== VILLAGE DECORATION ===== */
+    .village-scene {
+      max-width: 1000px;
+      margin: 0 auto;
+      padding: 0 1.5rem 0.8rem;
+      display: flex;
+      justify-content: center;
+      gap: 1.5rem;
+      height: 30px;
+      opacity: 0.8;
+      font-size: 1.8rem;
+    }
+    .bamboo { animation: sway 4s ease-in-out infinite; }
+    .bamboo:nth-child(2) { animation-delay: 0.5s; }
+    .bamboo:nth-child(3) { animation-delay: 1s; }
+    @keyframes sway { 0%, 100% { transform: rotate(-2deg); } 50% { transform: rotate(2deg); } }
+
+    /* ===== MAIN LAYOUT ===== */
+    .container {
+      max-width: 850px;
+      margin: 0 auto;
+      padding: 0 1rem 2rem;
+    }
+
+    /* ===== SECTION TITLES ===== */
+    .section-title {
+      text-align: center;
+      padding: 1rem;
+      margin: 1.5rem 0 1rem;
+      background: linear-gradient(135deg, rgba(255,248,225,0.95), rgba(255,236,179,0.95));
+      border: 2px solid var(--secondary);
+      border-radius: 16px;
+      box-shadow: 0 4px 15px rgba(0,0,0,0.12);
+    }
+    .section-title h2 { color: var(--primary); margin-bottom: 0.2rem; }
+    .section-title p { color: var(--text-light); font-style: italic; font-size: 0.85rem; }
+
+    /* ===== QUESTION INDEX ===== */
+    .question-index {
+      background: var(--light);
+      border: 2px solid var(--secondary);
+      border-radius: 16px;
+      padding: 1.2rem;
+      margin-bottom: 1.5rem;
+      box-shadow: 0 5px 18px rgba(62, 39, 35, 0.18);
+    }
+    .question-item {
+      padding: 0.7rem 0.8rem;
+      margin: 0.5rem 0;
+      background: white;
+      border-radius: 8px;
+      border-left: 3px solid var(--accent);
+      transition: all 0.2s;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      flex-wrap: wrap;
+      gap: 0.5rem;
+    }
+    .question-item:hover { transform: translateX(4px); box-shadow: 0 3px 10px rgba(0,0,0,0.08); }
+    .question-text { font-style: italic; color: var(--primary); flex: 1; font-size: 0.95rem; }
+    .question-link {
+      background: var(--accent);
+      color: white;
+      padding: 0.3rem 0.8rem;
+      border-radius: 15px;
+      text-decoration: none;
+      font-size: 0.8rem;
+      transition: all 0.2s;
+    }
+    .question-link:hover { background: #0D47A1; transform: scale(1.05); }
+
+    /* ===== POEM CARD ===== */
+    .poem-card {
+      background: linear-gradient(180deg, var(--light) 0%, var(--cream) 100%);
+      border: 2px solid var(--secondary);
+      border-radius: 16px;
+      padding: 1.2rem;
+      margin: 1.5rem 0;
+      position: relative;
+      box-shadow: 0 5px 18px rgba(62, 39, 35, 0.2);
+    }
+    .poem-card::before {
+      content: '';
+      position: absolute;
+      top: 0; left: 0; right: 0;
+      height: 5px;
+      background: repeating-linear-gradient(90deg, var(--secondary) 0px, #A1887F 6px, var(--secondary) 12px);
+      border-radius: 16px 16px 0 0;
+    }
+    .poem-header {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      margin-bottom: 0.8rem;
+      padding-bottom: 0.6rem;
+      border-bottom: 1px dashed #BCAAA4;
+      flex-wrap: wrap;
+      gap: 0.6rem;
+    }
+    .poem-title { font-size: 1.1rem; color: var(--primary); font-style: italic; }
+    .poem-badge {
+      background: #D7CCC8;
+      color: var(--primary);
+      padding: 0.2rem 0.6rem;
+      border-radius: 12px;
+      font-size: 0.75rem;
+      font-style: italic;
+      border: 1px solid var(--secondary);
+    }
+
+    /* ===== POEM CONTENT (FIT CONTENT & COMPACT) ===== */
+    .poem-wrapper {
+      text-align: center;
+      margin: 1rem 0;
+    }
+    .poem-content {
+      display: inline-block; /* Tự co theo nội dung */
+      text-align: center;
+      padding: 1.2rem 1.8rem;
+      margin: 0 auto;
+      background: var(--paper);
+      /* Pattern giấy dó nhẹ nhàng */
+      background-image: 
+        radial-gradient(circle at 20% 80%, rgba(139, 115, 85, 0.05) 0%, transparent 10%),
+        radial-gradient(circle at 80% 20%, rgba(139, 115, 85, 0.05) 0%, transparent 10%);
+      border: 2px solid #8B7355;
+      border-radius: 12px;
+      box-shadow: 
+        4px 4px 12px rgba(62, 39, 35, 0.15),
+        inset 0 0 20px rgba(139, 115, 85, 0.1);
+      font-family: 'Merriweather', serif;
+      color: #3E2723;
+      font-style: italic;
+    }
+    .poem-content p {
+      margin: 0.8rem 0; /* Khoảng cách giữa các khổ */
+      padding: 0;
+      line-height: 1.5;
+    }
+    .poem-content p:last-child { margin-bottom: 0; }
+    .poem-content p:first-child { margin-top: 0; }
+    .poem-content span {
+      display: block; /* Mỗi dòng một block */
+      margin: 0.2rem 0; /* Khoảng cách sát giữa câu 6-8 */
+      line-height: 1.6;
+    }
+    .poem-preface {
+      font-size: 0.95rem;
+      opacity: 0.8;
+      margin-bottom: 0.5rem !important;
+    }
+
+    /* ===== TRANSLATION ===== */
+    .translation {
+      background: rgba(233, 245, 255, 0.5);
+      border-left: 3px solid var(--accent);
+      padding: 0.6rem 0.8rem;
+      margin: 0.8rem auto;
+      max-width: 500px; /* Thu gọn phần dịch */
+      border-radius: 0 8px 8px 0;
+      font-size: 0.85rem;
+      font-style: italic;
+      color: #1565C0;
+    }
+    .translation span { font-style: normal; color: #0D47A1; }
+
+    /* ===== EXPLANATION BOX ===== */
+    .explanation {
+      background: rgba(255,255,255,0.8);
+      border: 1px solid #A1887F;
+      border-radius: 10px;
+      padding: 0.8rem 1rem;
+      margin: 1rem auto;
+      max-width: 650px;
+      font-size: 0.9rem;
+      line-height: 1.7;
+      text-align: justify;
+      font-style: italic;
+    }
+    .explanation ul { padding-left: 1.5rem; margin: 0.5rem 0; }
+    .explanation li { margin: 0.3rem 0; }
+    .key-term {
+      background: #FFF3E0;
+      padding: 0.1rem 0.3rem;
+      border-radius: 3px;
+      font-style: italic;
+      color: #E65100;
+    }
+
+    /* ===== ACTION BUTTONS ===== */
+    .actions {
+      display: flex;
+      gap: 0.5rem;
+      flex-wrap: wrap;
+      margin-top: 1rem;
+      padding-top: 0.8rem;
+      border-top: 1px dashed #BCAAA4;
+    }
+    .btn {
+      display: flex;
+      align-items: center;
+      gap: 0.4rem;
+      padding: 0.45rem 0.9rem;
+      border: 1px solid var(--secondary);
+      border-radius: 18px;
+      background: var(--light);
+      color: var(--primary);
+      font-size: 0.85rem;
+      cursor: pointer;
+      transition: all 0.3s;
+      font-family: inherit;
+      text-decoration: none;
+      justify-content: center;
+    }
+    .btn:hover { background: var(--secondary); color: white; transform: translateY(-2px); }
+    .btn.copy { background: #4FC3F7; border-color: #0288D1; color: #01579B; }
+    .btn.copy:hover { background: #0288D1; color: white; }
+    .btn.github { background: #24292e; border-color: #1b1f23; color: white; }
+    .btn.github:hover { background: #1b1f23; color: white; }
+    .btn.back { background: #81C784; border-color: #388E3C; color: #1B5E20; }
+    .btn.back:hover { background: #388E3C; color: white; }
+
+    /* ===== GITHUB INFO BOX ===== */
+    .github-info {
+      background: linear-gradient(135deg, #f6f8fa, #e1e4e8);
+      border: 1px solid #0366d6;
+      border-radius: 8px;
+      padding: 0.6rem 0.8rem;
+      margin: 1rem auto;
+      max-width: 650px;
+      font-size: 0.8rem;
+      color: #24292e;
+      font-style: italic;
+    }
+    .github-info ol { padding-left: 1rem; margin: 0.3rem 0; }
+    .github-info li { margin: 0.2rem 0; }
+
+    /* ===== FOOTER ===== */
+    footer {
+      background: linear-gradient(135deg, var(--primary), #3E2723);
+      color: #D7CCC8;
+      text-align: center;
+      padding: 1.5rem 1rem;
+      margin-top: 2rem;
+      border-top: 6px solid var(--secondary);
+      position: relative;
+      font-style: italic;
+    }
+    footer::before {
+      content: '📊  🌾  ✍️';
+      position: absolute;
+      top: -10px; left: 50%; transform: translateX(-50%);
+      background: var(--primary);
+      padding: 0 1rem;
+      font-size: 1rem;
+    }
+    .footer-link { color: #81D4FA; text-decoration: none; }
+    .footer-link:hover { text-decoration: underline; }
+
+    /* ===== TOAST ===== */
+    .toast {
+      position: fixed; bottom: 1rem; right: 1rem;
+      background: var(--primary); color: #FFF8E1;
+      padding: 0.7rem 1.2rem; border-radius: 8px;
+      box-shadow: 0 4px 15px rgba(0,0,0,0.3);
+      transform: translateX(200%); transition: transform 0.3s ease;
+      z-index: 2000; font-size: 0.85rem;
+      border: 1px solid #D7CCC8;
+    }
+    .toast.show { transform: translateX(0); }
+
+    /* ===== UTILITIES ===== */
+    .animate { animation: fadeIn 0.6s ease forwards; }
+    @keyframes fadeIn { from { opacity: 0; transform: translateY(15px); } to { opacity: 1; transform: translateY(0); } }
+    
+    ::-webkit-scrollbar { width: 8px; }
+    ::-webkit-scrollbar-track { background: #EFEBE9; }
+    ::-webkit-scrollbar-thumb { background: var(--secondary); border-radius: 8px; }
+    ::-webkit-scrollbar-thumb:hover { background: var(--primary); }
+
+    @media (max-width: 768px) {
+      .header-content { flex-direction: column; text-align: center; }
+      .poem-content { padding: 1rem 1.2rem; }
+      .actions { flex-direction: column; }
+      .btn { width: 100%; justify-content: center; }
+      .question-item { flex-direction: column; align-items: flex-start; }
+      .question-link { width: 100%; text-align: center; margin-top: 0.3rem; }
+    }
+  </style>
+</head>
+<body>
+
+  <!-- HEADER -->
+  <header>
+    <div class="header-content">
+      <div class="logo">
+        <span class="logo-icon">📊</span>
+        <div class="logo-text">
+          <h1>Xác Suất Thơ</h1>
+          <p>thovochu.com/stats</p>
+        </div>
+      </div>
+      <nav>
+        <a href="#part1">Mục lục</a>
+        <a href="#part2">Bài học</a>
+        <a href="https://github.com/maitheduy/XacSuatTho/issues" target="_blank">Góp ý</a>
+      </nav>
+    </div>
+  </header>
+
+  <!-- NOTICE BANNER -->
+  <div class="notice-banner">
+    Thơ minh họa do AI hỗ trợ sáng tác. Quý vị muốn chỉnh sửa? Nhấn <em>Góp ý trên GitHub</em> bên dưới mỗi bài. Chỉ chủ repo mới có quyền cập nhật thơ chính thức.
+  </div>
+
+  <div class="village-scene">
+    <span class="bamboo">🎋</span>
+    <span class="bamboo">🌾</span>
+    <span class="bamboo">🎋</span>
+  </div>
+
+  <!-- MAIN CONTENT -->
+  <div class="container">
+
+    <!-- PART I: INDEX -->
+    <section id="part1" class="section-title animate">
+      <h2>Phần I: Danh sách câu hỏi</h2>
+      <p>Nhấn vào câu hỏi để xem lời giải chi tiết kèm thơ lục bát</p>
+    </section>
+
+    <article class="question-index animate">
+      <div class="question-item">
+        <span class="question-text">1. Thống kê có thể làm gì với một khu vườn rộng lớn?</span>
+        <a href="#q1" class="question-link">Xem trả lời ↓</a>
+      </div>
+      <div class="question-item">
+        <span class="question-text">2. Có những thang đo nào cho các bông hoa trong lẵng?</span>
+        <a href="#q2" class="question-link">Xem trả lời ↓</a>
+      </div>
+      <div class="question-item">
+        <span class="question-text">3. Làm thế nào để hái một lẵng hoa đại diện cho cả vườn?</span>
+        <a href="#q3" class="question-link">Xem trả lời ↓</a>
+      </div>
+      <div class="question-item">
+        <span class="question-text">4. Những đám sương mù nào có thể làm mờ bức họa khu vườn?</span>
+        <a href="#q4" class="question-link">Xem trả lời ↓</a>
+      </div>
+      <div class="question-item">
+        <span class="question-text">5. Thang Khoảng và thang Tỉ lệ khác nhau như thế nào?</span>
+        <a href="#q5" class="question-link">Xem trả lời ↓</a>
+      </div>
+      <div class="question-item">
+        <span class="question-text">6. Tại sao không thể nói "40°C nóng gấp đôi 20°C"?</span>
+        <a href="#q6" class="question-link">Xem trả lời ↓</a>
+      </div>
+      <div class="question-item">
+        <span class="question-text">7. Khi nào thì "gấp đôi" mới có nghĩa trong thống kê?</span>
+        <a href="#q7" class="question-link">Xem trả lời ↓</a>
+      </div>
+      <div class="question-item">
+        <span class="question-text">8. Hai câu hỏi then chốt cần đặt ra trước khi phân tích dữ liệu?</span>
+        <a href="#q8" class="question-link">Xem trả lời ↓</a>
+      </div>
+    </article>
+
+    <!-- PART II: DETAILED Q&A -->
+    <section id="part2" class="section-title animate">
+      <h2>Phần II: Câu hỏi & Trả lời chi tiết</h2>
+      <p>Mỗi câu trả lời kèm thơ lục bát + giải thích thống kê + bản dịch tiếng Anh</p>
+    </section>
+
+    <!-- Q1 -->
+    <article class="poem-card animate" id="q1">
+      <div class="poem-header">
+        <h3 class="poem-title">Câu 1: Thống kê thu gọn đất trời</h3>
+        <span class="poem-badge">Tổng thể & Mẫu</span>
+      </div>
+      <div class="poem-wrapper">
+        <div class="poem-content" id="poem1">
+          <p class="poem-preface">Rằng là</p>
+          <p>
+            <span>Thống kê thu gọn đất trời,</span>
+            <span>Tóm nơi vô tận vào nơi tỏ tường.</span>
+          </p>
+        </div>
+      </div>
+      <div class="translation">
+        <span>The Ode to Scales:</span><br>
+        Statistics captures earth and sky,<br>
+        Condensing infinite realms nearby.
+      </div>
+      <div class="explanation">
+        Trả lời: Không thể đếm hết số lượng cá dưới biển hay đếm hết số cây trong rừng vì quy mô tổng thể quá lớn. Tuy nhiên, trong thống kê, chúng ta không cần khảo sát toàn bộ tổng thể mà chỉ cần lấy một mẫu nhỏ có tính đại diện, sau đó phân tích chi tiết các đặc trưng của mẫu để suy ra các tham số của tổng thể.<br><br>
+        Cụ thể, từ các thống kê mẫu (sample statistics) chúng ta ước lượng các tham số của tổng thể (population parameters). Ví dụ, từ kỳ vọng mẫu X̄ chúng ta suy ra ước lượng cho kỳ vọng của tổng thể μ; từ phương sai mẫu S² chúng ta suy ra ước lượng cho phương sai của tổng thể σ².
+      </div>
+      <div class="actions">
+        <button class="btn copy" onclick="copyPoem('poem1')">📋 Copy thơ</button>
+        <a href="https://github.com/maitheduy/XacSuatTho/issues/new?title=G%C3%B3p%20%C3%BD%20s%E1%BB%ADa%20th%C6%A1%20-%20C%C3%A2u%201&body=**B%C3%A0i:**%20Th%E1%BB%91ng%20k%C3%AA%20thu%20g%E1%BB%8Dn%20%C4%91%E1%BA%A5t%20tr%E1%BB%9Di%0A%0A**D%C3%B2ng%20g%E1%BB%91c:**%20[vi%E1%BA%BFt%20c%C3%A2u%20c%E1%BA%A7n%20s%E1%BB%ADa]%0A**%C4%90%E1%BB%81%20xu%E1%BA%A5t:**%20[vi%E1%BA%BFt%20c%C3%A2u%20s%E1%BB%ADa]%0A%0A*Ghi%20ch%C3%BA%20th%C3%AAm%20(n%E1%BA%BFu%20c%C3%B3):*" 
+           class="btn github" target="_blank">
+          🐙 Góp ý sửa thơ
+        </a>
+        <a href="#part1" class="btn back">↑ Quay lại mục lục</a>
+      </div>
+      <div class="github-info">
+        <span>Hướng dẫn góp ý:</span>
+        <ol>
+          <li>Nhấn nút <em>Góp ý sửa thơ</em> → điền đề xuất theo format</li>
+          <li>Nhấn <em>Submit new issue</em> trên GitHub</li>
+          <li>Chủ repo sẽ xem xét và cập nhật nếu phù hợp</li>
+        </ol>
+      </div>
+    </article>
+
+    <!-- Q2 -->
+    <article class="poem-card animate" id="q2">
+      <div class="poem-header">
+        <h3 class="poem-title">Câu 2: Bốn thang đo dẫn đường</h3>
+        <span class="poem-badge">Levels of Measurement</span>
+      </div>
+      <div class="poem-wrapper">
+        <div class="poem-content" id="poem2">
+          <p class="poem-preface">Rằng là</p>
+          <p>
+            <span>Bốn thang đo đạc dẫn đường:</span>
+            <span>Định danh, Thứ bậc, Khoảng thường, Tỉ phân.</span>
+          </p>
+        </div>
+      </div>
+      <div class="translation">
+        <span>The Ode to Scales:</span><br>
+        Four scales of measurement guide the way:<br>
+        Nominal, Ordinal, Interval, Ratio at play.
+      </div>
+      <div class="explanation">
+        Trả lời: Mỗi bông hoa trong lẵng mang những thuộc tính riêng – đó chính là biến (variable). Thống kê có bốn ngôn ngữ để mô tả chúng, gọi là thang đo (levels of measurement):<br><br>
+        • Thang định danh (Nominal): Chỉ cần gọi tên, không có thứ tự. Ví dụ: loại hoa (hồng, cúc, lan).<br>
+        • Thang thứ bậc (Ordinal): Có thứ tự nhưng khoảng cách không bằng nhau. Ví dụ: mức độ thơm (5 sao, 4 sao, 3 sao).<br>
+        • Thang khoảng (Interval): Khoảng cách có ý nghĩa, nhưng điểm zero chỉ là quy ước. Ví dụ: nhiệt độ °C.<br>
+        • Thang tỉ lệ (Ratio): Có điểm zero tuyệt đối, cho phép nói "gấp đôi". Ví dụ: chiều cao, số cánh hoa.
+      </div>
+      <div class="actions">
+        <button class="btn copy" onclick="copyPoem('poem2')">📋 Copy thơ</button>
+        <a href="https://github.com/maitheduy/XacSuatTho/issues/new?title=G%C3%B3p%20%C3%BD%20s%E1%BB%ADa%20th%C6%A1%20-%20C%C3%A2u%202&body=**B%C3%A0i:**%20B%E1%BB%91n%20thang%20%C4%91o%20d%E1%BA%ABn%20%C4%91%C6%B0%E1%BB%9Dng%0A%0A**D%C3%B2ng%20g%E1%BB%91c:**%20[vi%E1%BA%BFt%20c%C3%A2u%20c%E1%BA%A7n%20s%E1%BB%ADa]%0A**%C4%90%E1%BB%81%20xu%E1%BA%A5t:**%20[vi%E1%BA%BFt%20c%C3%A2u%20s%E1%BB%ADa]%0A%0A*Ghi%20ch%C3%BA%20th%C3%AAm%20(n%E1%BA%BFu%20c%C3%B3):*" 
+           class="btn github" target="_blank">
+          🐙 Góp ý sửa thơ
+        </a>
+        <a href="#part1" class="btn back">↑ Quay lại mục lục</a>
+      </div>
+      <div class="github-info">
+        <span>Hướng dẫn góp ý:</span>
+        <ol>
+          <li>Nhấn nút <em>Góp ý sửa thơ</em> → điền đề xuất theo format</li>
+          <li>Nhấn <em>Submit new issue</em> trên GitHub</li>
+          <li>Chủ repo sẽ xem xét và cập nhật nếu phù hợp</li>
+        </ol>
+      </div>
+    </article>
+
+    <!-- Q3 -->
+    <article class="poem-card animate" id="q3">
+      <div class="poem-header">
+        <h3 class="poem-title">Câu 3: Lấy mẫu đại diện ân cần</h3>
+        <span class="poem-badge">Sampling Methods</span>
+      </div>
+      <div class="poem-wrapper">
+        <div class="poem-content" id="poem3">
+          <p class="poem-preface">Rằng là</p>
+          <p>
+            <span>Lấy mẫu đại diện ân cần:</span>
+            <span>Ngẫu nhiên, Tầng, Cụm dự phần Hệ chung.</span>
+          </p>
+        </div>
+      </div>
+      <div class="translation">
+        <span>The Ode to Scales:</span><br>
+        Sampling methods ensure we're right:<br>
+        Random, Stratified, Cluster, Systematic in sight.
+      </div>
+      <div class="explanation">
+        Trả lời: Việc chọn lẵng hoa đại diện chính là nghệ thuật cốt lõi của lấy mẫu thống kê (sampling). Các kỹ thuật phổ biến bao gồm:<br><br>
+        • Lấy mẫu ngẫu nhiên đơn giản: Mỗi cá thể có xác suất được chọn bằng nhau.<br>
+        • Lấy mẫu phân tầng: Chia tổng thể thành các tầng, lấy mẫu từ mỗi tầng.<br>
+        • Lấy mẫu hệ thống: Lấy mẫu theo khoảng cách cố định.<br>
+        • Lấy mẫu cụm: Chọn ngẫu nhiên một số cụm, lấy toàn bộ cá thể trong cụm đó.
+      </div>
+      <div class="actions">
+        <button class="btn copy" onclick="copyPoem('poem3')">📋 Copy thơ</button>
+        <a href="https://github.com/maitheduy/XacSuatTho/issues/new?title=G%C3%B3p%20%C3%BD%20s%E1%BB%ADa%20th%C6%A1%20-%20C%C3%A2u%203&body=**B%C3%A0i:**%20L%E1%BA%A5y%20m%E1%BA%ABu%20%C4%91%E1%BA%A1i%20di%E1%BB%87n%0A%0A**D%C3%B2ng%20g%E1%BB%91c:**%20[vi%E1%BA%BFt%20c%C3%A2u%20c%E1%BA%A7n%20s%E1%BB%ADa]%0A**%C4%90%E1%BB%81%20xu%E1%BA%A5t:**%20[vi%E1%BA%BFt%20c%C3%A2u%20s%E1%BB%ADa]%0A%0A*Ghi%20ch%C3%BA%20th%C3%AAm%20(n%E1%BA%BFu%20c%C3%B3):*" 
+           class="btn github" target="_blank">
+          🐙 Góp ý sửa thơ
+        </a>
+        <a href="#part1" class="btn back">↑ Quay lại mục lục</a>
+      </div>
+      <div class="github-info">
+        <span>Hướng dẫn góp ý:</span>
+        <ol>
+          <li>Nhấn nút <em>Góp ý sửa thơ</em> → điền đề xuất theo format</li>
+          <li>Nhấn <em>Submit new issue</em> trên GitHub</li>
+          <li>Chủ repo sẽ xem xét và cập nhật nếu phù hợp</li>
+        </ol>
+      </div>
+    </article>
+
+    <!-- Q4 -->
+    <article class="poem-card animate" id="q4">
+      <div class="poem-header">
+        <h3 class="poem-title">Câu 4: Sai số là đám sương mù</h3>
+        <span class="poem-badge">Sampling Errors</span>
+      </div>
+      <div class="poem-wrapper">
+        <div class="poem-content" id="poem4">
+          <p class="poem-preface">Rằng là</p>
+          <p>
+            <span>Sai số là đám sương mù,</span>
+            <span>Làm mờ bức họa điệp trùng thực hư.</span>
+          </p>
+        </div>
+      </div>
+      <div class="translation">
+        <span>The Ode to Scales:</span><br>
+        Yet errors loom like misty haze,<br>
+        Blurring the truth in a tangled maze.
+      </div>
+      <div class="explanation">
+        Trả lời: Dù lẵng hoa đã được chọn kỹ càng, chúng ta vẫn không thể tránh khỏi những sai số (errors). Các loại sai số chính bao gồm:<br><br>
+        • Sai số lấy mẫu (Sampling error): Sai số do chỉ khảo sát một phần thay vì toàn bộ tổng thể.<br>
+        • Sai số bao phủ (Coverage error): Khung lấy mẫu không bao quát đầy đủ tổng thể.<br>
+        • Sai số không phản hồi (Non-response error): Cá thể được chọn nhưng không cung cấp thông tin.<br>
+        • Sai số đo lường (Measurement error): Thu thập dữ liệu không chính xác.
+      </div>
+      <div class="actions">
+        <button class="btn copy" onclick="copyPoem('poem4')">📋 Copy thơ</button>
+        <a href="https://github.com/maitheduy/XacSuatTho/issues/new?title=G%C3%B3p%20%C3%BD%20s%E1%BB%ADa%20th%C6%A1%20-%20C%C3%A2u%204&body=**B%C3%A0i:**%20Sai%20s%E1%BB%91%20l%C3%A0%20%C4%91%C3%A1m%20s%C6%B0%C6%A1ng%20m%C3%B9%0A%0A**D%C3%B2ng%20g%E1%BB%91c:**%20[vi%E1%BA%BFt%20c%C3%A2u%20c%E1%BA%A7n%20s%E1%BB%ADa]%0A**%C4%90%E1%BB%81%20xu%E1%BA%A5t:**%20[vi%E1%BA%BFt%20c%C3%A2u%20s%E1%BB%ADa]%0A%0A*Ghi%20ch%C3%BA%20th%C3%AAm%20(n%E1%BA%BFu%20c%C3%B3):*" 
+           class="btn github" target="_blank">
+          🐙 Góp ý sửa thơ
+        </a>
+        <a href="#part1" class="btn back">↑ Quay lại mục lục</a>
+      </div>
+      <div class="github-info">
+        <span>Hướng dẫn góp ý:</span>
+        <ol>
+          <li>Nhấn nút <em>Góp ý sửa thơ</em> → điền đề xuất theo format</li>
+          <li>Nhấn <em>Submit new issue</em> trên GitHub</li>
+          <li>Chủ repo sẽ xem xét và cập nhật nếu phù hợp</li>
+        </ol>
+      </div>
+    </article>
+
+    <!-- Q5 -->
+    <article class="poem-card animate" id="q5">
+      <div class="poem-header">
+        <h3 class="poem-title">Câu 5: Thang Khoảng, Tỉ lệ giống như</h3>
+        <span class="poem-badge">Interval vs Ratio</span>
+      </div>
+      <div class="poem-wrapper">
+        <div class="poem-content" id="poem5">
+          <p class="poem-preface">Rằng là</p>
+          <p>
+            <span>Thang Khoảng, Tỉ lệ giống như,</span>
+            <span>Hiểu sai một chút là từ vực sâu.</span>
+          </p>
+        </div>
+      </div>
+      <div class="translation">
+        <span>The Ode to Scales:</span><br>
+        Interval and Ratio, distinct in their frame,<br>
+        Misunderstood, they disrupt the game.
+      </div>
+      <div class="explanation">
+        Trả lời: Thang khoảng và thang tỉ lệ trông rất giống nhau vì cả hai đều có thứ tự và khoảng cách có ý nghĩa. Điểm khác biệt cốt lõi nằm ở điểm zero:<br><br>
+        • Thang khoảng: Zero là điểm quy ước, không có ý nghĩa "không có gì". Chỉ được phép cộng và trừ.<br>
+        • Thang tỉ lệ: Zero là zero tuyệt đối (true zero), cho phép mọi phép toán số học.
+      </div>
+      <div class="actions">
+        <button class="btn copy" onclick="copyPoem('poem5')">📋 Copy thơ</button>
+        <a href="https://github.com/maitheduy/XacSuatTho/issues/new?title=G%C3%B3p%20%C3%BD%20s%E1%BB%ADa%20th%C6%A1%20-%20C%C3%A2u%205&body=**B%C3%A0i:**%20Thang%20Kho%E1%BA%A3ng%20T%E1%BB%89%20l%E1%BB%87%20gi%E1%BB%91ng%20nh%C6%B0%0A%0A**D%C3%B2ng%20g%E1%BB%91c:**%20[vi%E1%BA%BFt%20c%C3%A2u%20c%E1%BA%A7n%20s%E1%BB%ADa]%0A**%C4%90%E1%BB%81%20xu%E1%BA%A5t:**%20[vi%E1%BA%BFt%20c%C3%A2u%20s%E1%BB%ADa]%0A%0A*Ghi%20ch%C3%BA%20th%C3%AAm%20(n%E1%BA%BFu%20c%C3%B3):*" 
+           class="btn github" target="_blank">
+          🐙 Góp ý sửa thơ
+        </a>
+        <a href="#part1" class="btn back">↑ Quay lại mục lục</a>
+      </div>
+      <div class="github-info">
+        <span>Hướng dẫn góp ý:</span>
+        <ol>
+          <li>Nhấn nút <em>Góp ý sửa thơ</em> → điền đề xuất theo format</li>
+          <li>Nhấn <em>Submit new issue</em> trên GitHub</li>
+          <li>Chủ repo sẽ xem xét và cập nhật nếu phù hợp</li>
+        </ol>
+      </div>
+    </article>
+
+    <!-- Q6 -->
+    <article class="poem-card animate" id="q6">
+      <div class="poem-header">
+        <h3 class="poem-title">Câu 6: 40°C không gấp đôi 20°C</h3>
+        <span class="poem-badge">Interval Scale Trap</span>
+      </div>
+      <div class="poem-wrapper">
+        <div class="poem-content" id="poem6">
+          <p class="poem-preface">Rằng là</p>
+          <p>
+            <span>Thang Khoảng, độ C dẫn đầu,</span>
+            <span>Tính mức chênh lệch, chớ cầu "gấp đôi".</span>
+            <span>Bởi không (0) quy ước mà thôi,</span>
+            <span>Sang F số cộng đổi rồi mới chia.</span>
+          </p>
+        </div>
+      </div>
+      <div class="translation">
+        <span>The Ode to Scales:</span><br>
+        Interval scales, like Celsius degrees,<br>
+        Measure the differences with pure ease.<br>
+        But never say "twice as hot," beware!<br>
+        For zero is just an arbitrary snare.
+      </div>
+      <div class="explanation">
+        Trả lời: Khi chuyển từ độ Celsius sang độ Fahrenheit: F = 9/5 C + 32. Sự xuất hiện của hằng số +32 chứng tỏ điểm zero trên thang °F là tùy ý. Do đó, cùng một khoảng cách nhiệt độ khi biểu diễn trên hai thang đo sẽ cho ra các tỉ số khác nhau. Tỉ số 40/20 = 2 trên °C sẽ không còn bằng 2 trên °F. Vì vậy, nói "40°C nóng gấp đôi 20°C" là hoàn toàn vô nghĩa về mặt thống kê.
+      </div>
+      <div class="actions">
+        <button class="btn copy" onclick="copyPoem('poem6')">📋 Copy thơ</button>
+        <a href="https://github.com/maitheduy/XacSuatTho/issues/new?title=G%C3%B3p%20%C3%BD%20s%E1%BB%ADa%20th%C6%A1%20-%20C%C3%A2u%206&body=**B%C3%A0i:**%2040%C2%B0C%20kh%C3%B4ng%20g%E1%BA%A5p%20%C4%91%C3%B4i%2020%C2%B0C%0A%0A**D%C3%B2ng%20g%E1%BB%91c:**%20[vi%E1%BA%BFt%20c%C3%A2u%20c%E1%BA%A7n%20s%E1%BB%ADa]%0A**%C4%90%E1%BB%81%20xu%E1%BA%A5t:**%20[vi%E1%BA%BFt%20c%C3%A2u%20s%E1%BB%ADa]%0A%0A*Ghi%20ch%C3%BA%20th%C3%AAm%20(n%E1%BA%BFu%20c%C3%B3):*" 
+           class="btn github" target="_blank">
+          🐙 Góp ý sửa thơ
+        </a>
+        <a href="#part1" class="btn back">↑ Quay lại mục lục</a>
+      </div>
+      <div class="github-info">
+        <span>Hướng dẫn góp ý:</span>
+        <ol>
+          <li>Nhấn nút <em>Góp ý sửa thơ</em> → điền đề xuất theo format</li>
+          <li>Nhấn <em>Submit new issue</em> trên GitHub</li>
+          <li>Chủ repo sẽ xem xét và cập nhật nếu phù hợp</li>
+        </ol>
+      </div>
+    </article>
+
+    <!-- Q7 -->
+    <article class="poem-card animate" id="q7">
+      <div class="poem-header">
+        <h3 class="poem-title">Câu 7: Khi nào "gấp đôi" mới có nghĩa?</h3>
+        <span class="poem-badge">Ratio Scale Power</span>
+      </div>
+      <div class="poem-wrapper">
+        <div class="poem-content" id="poem7">
+          <p class="poem-preface">Rằng là</p>
+          <p>
+            <span>Còn thang Tỉ lệ cây kia,</span>
+            <span>Điểm không tuyệt đối mới lìa hư vô.</span>
+            <span>Hai mét gấp một, rõ phô,</span>
+            <span>Đổi thay đơn vị, cơ đồ chẳng rơi.</span>
+          </p>
+        </div>
+      </div>
+      <div class="translation">
+        <span>The Ode to Scales:</span><br>
+        Ratio scales, like trees so tall,<br>
+        Have absolute zero, nothing at all.<br>
+        Two meters is twice of one, we see,<br>
+        Units may change, but the ratio is free.
+      </div>
+      <div class="explanation">
+        Trả lời: Với chiều cao cây, 0 cm có ý nghĩa vật lý rõ ràng. Hai mét cao gấp đôi một mét. Dù đổi đơn vị sang centimet, inch hay feet, tỉ lệ vẫn giữ nguyên là 2. Đây là đặc tính bất biến (invariance of ratios) chỉ có ở thang tỉ lệ. Chính vì sở hữu điểm zero tuyệt đối, thang tỉ lệ trở thành thang đo "mạnh" nhất, cho phép áp dụng hầu hết các phương pháp thống kê nâng cao.
+      </div>
+      <div class="actions">
+        <button class="btn copy" onclick="copyPoem('poem7')">📋 Copy thơ</button>
+        <a href="https://github.com/maitheduy/XacSuatTho/issues/new?title=G%C3%B3p%20%C3%BD%20s%E1%BB%ADa%20th%C6%A1%20-%20C%C3%A2u%207&body=**B%C3%A0i:**%20Khi%20n%C3%A0o%20g%E1%BA%A5p%20%C4%91%C3%B4i%20m%E1%BB%9Bi%20c%C3%B3%20ngh%C4%A9a%0A%0A**D%C3%B2ng%20g%E1%BB%91c:**%20[vi%E1%BA%BFt%20c%C3%A2u%20c%E1%BA%A7n%20s%E1%BB%ADa]%0A**%C4%90%E1%BB%81%20xu%E1%BA%A5t:**%20[vi%E1%BA%BFt%20c%C3%A2u%20s%E1%BB%ADa]%0A%0A*Ghi%20ch%C3%BA%20th%C3%AAm%20(n%E1%BA%BFu%20c%C3%B3):*" 
+           class="btn github" target="_blank">
+          🐙 Góp ý sửa thơ
+        </a>
+        <a href="#part1" class="btn back">↑ Quay lại mục lục</a>
+      </div>
+      <div class="github-info">
+        <span>Hướng dẫn góp ý:</span>
+        <ol>
+          <li>Nhấn nút <em>Góp ý sửa thơ</em> → điền đề xuất theo format</li>
+          <li>Nhấn <em>Submit new issue</em> trên GitHub</li>
+          <li>Chủ repo sẽ xem xét và cập nhật nếu phù hợp</li>
+        </ol>
+      </div>
+    </article>
+
+    <!-- Q8 -->
+    <article class="poem-card animate" id="q8">
+      <div class="poem-header">
+        <h3 class="poem-title">Câu 8: Hai câu hỏi then chốt</h3>
+        <span class="poem-badge">Critical Thinking</span>
+      </div>
+      <div class="poem-wrapper">
+        <div class="poem-content" id="poem8">
+          <p class="poem-preface">Rằng là</p>
+          <p>
+            <span>Trước khi thống kê luận bàn,</span>
+            <span>Hỏi không tuyệt đối, hay màn ảo thôi?</span>
+            <span>Đổi thang tỷ số "gấp đôi",</span>
+            <span>Có còn giữ vẹn, hay trôi mất rồi?</span>
+          </p>
+        </div>
+      </div>
+      <div class="translation">
+        <span>The Ode to Scales:</span><br>
+        Before you chart, or test, or mean,<br>
+        Ask if zero is absolute or a convention seen?<br>
+        Change the scale, does "double" remain?<br>
+        Stay vigilant, lest your stats are in vain!
+      </div>
+      <div class="explanation">
+        Trả lời: Hai câu hỏi then chốt cần đặt ra trước khi phân tích dữ liệu:<br><br>
+        1. Zero ở đây là mốc quy ước hay zero tuyệt đối?<br>
+        2. Nếu đổi đơn vị đo lường, kết luận "gấp đôi", "gấp ba", "bằng một nửa" của mình còn giữ nguyên không?<br><br>
+        Chỉ cần trả lời trung thực hai câu hỏi này, chúng ta đã tránh được vô số sai lầm khái niệm nghiêm trọng trong phân tích dữ liệu. Nhớ kỹ: thang định danh/thứ bậc → chỉ dùng tần suất, trung vị; thang khoảng → được cộng trừ, không nhân chia; thang tỉ lệ → được dùng toàn bộ công cụ thống kê.
+      </div>
+      <div class="actions">
+        <button class="btn copy" onclick="copyPoem('poem8')">📋 Copy thơ</button>
+        <a href="https://github.com/maitheduy/XacSuatTho/issues/new?title=G%C3%B3p%20%C3%BD%20s%E1%BB%ADa%20th%C6%A1%20-%20C%C3%A2u%208&body=**B%C3%A0i:**%20Hai%20c%C3%A2u%20h%E1%BB%8Fi%20then%20ch%E1%BB%91t%0A%0A**D%C3%B2ng%20g%E1%BB%91c:**%20[vi%E1%BA%BFt%20c%C3%A2u%20c%E1%BA%A7n%20s%E1%BB%ADa]%0A**%C4%90%E1%BB%81%20xu%E1%BA%A5t:**%20[vi%E1%BA%BFt%20c%C3%A2u%20s%E1%BB%ADa]%0A%0A*Ghi%20ch%C3%BA%20th%C3%AAm%20(n%E1%BA%BFu%20c%C3%B3):*" 
+           class="btn github" target="_blank">
+          🐙 Góp ý sửa thơ
+        </a>
+        <a href="#part1" class="btn back">↑ Quay lại mục lục</a>
+      </div>
+      <div class="github-info">
+        <span>Hướng dẫn góp ý:</span>
+        <ol>
+          <li>Nhấn nút <em>Góp ý sửa thơ</em> → điền đề xuất theo format</li>
+          <li>Nhấn <em>Submit new issue</em> trên GitHub</li>
+          <li>Chủ repo sẽ xem xét và cập nhật nếu phù hợp</li>
+        </ol>
+      </div>
+    </article>
+
+    <!-- DECORATIVE SECTION -->
+    <div class="animate" style="text-align: center; padding: 1.2rem; background: linear-gradient(135deg, rgba(255,248,225,0.95), rgba(255,236,179,0.95)); border: 2px solid var(--secondary); border-radius: 16px; margin: 1.5rem auto; max-width: 600px; box-shadow: 0 4px 15px rgba(0,0,0,0.12);">
+      <h3 style="color: var(--primary); margin-bottom: 0.6rem; font-style: italic; font-size: 1.3rem;">Xác Suất Thơ - Học vui, nhớ lâu</h3>
+      <div style="font-size: 1.5rem; margin: 0.5rem 0; letter-spacing: 0.5rem;">📊  🎋  ✍️  🌾</div>
+      <p style="font-size: 0.9rem; color: var(--text); line-height: 1.6; font-style: italic;">
+        Mỗi câu thơ là một khái niệm thống kê<br>
+        Mỗi góp ý là một viên gạch xây tri thức<br>
+        Cùng nhau học, cùng nhau hoàn thiện
+      </p>
+      <p style="margin-top: 0.6rem;">
+        <a href="https://github.com/maitheduy/XacSuatTho/issues" class="footer-link" target="_blank" style="font-weight: 500; font-style: italic;">
+          💬 Xem & đóng góp ý kiến trên GitHub →
+        </a>
+      </p>
+    </div>
+
+  </div>
+
+  <!-- FOOTER -->
+  <footer>
+    <p>Xác Suất Thơ • thovochu.com/stats</p>
+    <p style="margin: 0.4rem 0; color: #EF5350; font-style: italic; font-size: 0.9rem;">Học thống kê qua thơ lục bát - Dễ nhớ, dễ thương</p>
+    <p style="font-size: 0.85rem;">Nguồn cảm hứng: "Xác suất Thống kê - Một góc nhìn thi ca" • Dr.rer.nat Duymt</p>
+    <p style="margin-top: 0.6rem; font-size: 0.8rem; opacity: 0.9;">
+      🎋 Thơ minh họa do AI hỗ trợ • Không bản quyền • Góp ý qua GitHub Issues
+    </p>
+  </footer>
+
+  <!-- TOAST -->
+  <div class="toast" id="toast"></div>
+
+  <!-- JAVASCRIPT -->
+  <script>
+    function copyPoem(elementId) {
+      const poem = document.getElementById(elementId);
+      // Lấy text sạch sẽ, bỏ dòng "Rằng là" nếu có
+      let text = poem.innerText.replace(/^Rằng là\s*/m, '').trim();
+      
+      navigator.clipboard.writeText(text).then(() => {
+        showToast('📋 Đã copy thơ vào clipboard!');
+      }).catch(err => {
+        const textarea = document.createElement('textarea');
+        textarea.value = text;
+        document.body.appendChild(textarea);
+        textarea.select();
+        document.execCommand('copy');
+        document.body.removeChild(textarea);
+        showToast('📋 Đã copy thơ!');
+      });
+    }
+
+    function showToast(message) {
+      const toast = document.getElementById('toast');
+      toast.textContent = message;
+      toast.classList.add('show');
+      setTimeout(() => toast.classList.remove('show'), 2500);
+    }
+
+    document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+      anchor.addEventListener('click', function(e) {
+        e.preventDefault();
+        const target = document.querySelector(this.getAttribute('href'));
+        if (target) {
+          target.scrollIntoView({ behavior: 'smooth', block: 'start' });
+        }
+      });
+    });
+
+    document.addEventListener('DOMContentLoaded', () => {
+      setTimeout(() => showToast('📊🌾 Chào mừng đến với Xác Suất Thơ!'), 800);
+    });
+  </script>
+</body>
+</html>

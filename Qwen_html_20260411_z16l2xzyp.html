@@ -1,0 +1,1054 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Thơ Vô Chủ - thovochu.com | Thơ lục bát quê hương</title>
+  <style>
+    /* ===== RESET & BASE ===== */
+    * { margin: 0; padding: 0; box-sizing: border-box; }
+    
+    @import url('https://fonts.googleapis.com/css2?family=Be+Vietnam+Pro:wght@300;400;500;600;700&display=swap');
+    
+    body {
+      font-family: 'Be Vietnam Pro', 'Segoe UI', sans-serif;
+      background: 
+        linear-gradient(180deg, #87CEEB 0%, #98D8C8 40%, #90A955 70%, #6B8E23 100%),
+        url("image/svg+xml,%3Csvg width='100' height='100' viewBox='0 0 100 100' xmlns='http://www.w3.org/2000/svg'%3E%3Cpath d='M0 50 Q 25 40, 50 50 T 100 50' stroke='rgba(255,255,255,0.1)' fill='none' stroke-width='2'/%3E%3C/svg%3E");
+      background-attachment: fixed;
+      color: #3e2723;
+      line-height: 1.8;
+      min-height: 100vh;
+    }
+
+    /* ===== DECORATIVE BAMBOO BORDER ===== */
+    .bamboo-border {
+      position: relative;
+    }
+    .bamboo-border::before {
+      content: '🎋';
+      position: absolute;
+      left: 10px;
+      top: 50%;
+      transform: translateY(-50%);
+      font-size: 2rem;
+      opacity: 0.3;
+      z-index: 0;
+    }
+
+    /* ===== HEADER ===== */
+    header {
+      background: linear-gradient(135deg, #5D4037 0%, #8D6E63 50%, #A1887F 100%);
+      border-bottom: 8px solid #D7CCC8;
+      box-shadow: 0 4px 20px rgba(0,0,0,0.3);
+      position: relative;
+      overflow: hidden;
+    }
+    header::before {
+      content: '';
+      position: absolute;
+      top: 0;
+      left: 0;
+      right: 0;
+      bottom: 0;
+      background: url("data:image/svg+xml,%3Csvg width='60' height='60' viewBox='0 0 60 60' xmlns='http://www.w3.org/2000/svg'%3E%3Cpath d='M30 0 L35 25 L30 30 L25 25 Z' fill='rgba(255,255,255,0.05)'/%3E%3C/svg%3E");
+      opacity: 0.3;
+    }
+    .header-content {
+      max-width: 1200px;
+      margin: 0 auto;
+      padding: 1.5rem 2rem;
+      position: relative;
+      z-index: 1;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      flex-wrap: wrap;
+      gap: 1rem;
+    }
+    .logo {
+      display: flex;
+      align-items: center;
+      gap: 1rem;
+      color: #FFF8E1;
+    }
+    .logo-icon {
+      font-size: 3rem;
+      filter: drop-shadow(2px 2px 4px rgba(0,0,0,0.3));
+    }
+    .logo-text h1 {
+      font-size: 2.2rem;
+      font-weight: 700;
+      text-shadow: 2px 2px 4px rgba(0,0,0,0.4);
+      letter-spacing: 2px;
+    }
+    .logo-text p {
+      font-size: 0.95rem;
+      opacity: 0.9;
+      font-style: italic;
+    }
+    nav a {
+      color: #FFF8E1;
+      margin-left: 1.5rem;
+      text-decoration: none;
+      font-weight: 500;
+      transition: all 0.3s;
+      padding: 0.3rem 0.8rem;
+      border-radius: 20px;
+    }
+    nav a:hover {
+      background: rgba(255,255,255,0.2);
+      transform: translateY(-2px);
+    }
+
+    /* ===== NOTICE BANNER ===== */
+    .notice-banner {
+      background: linear-gradient(90deg, #64B5F6, #1976D2, #0D47A1);
+      border: 3px dashed #0D47A1;
+      border-radius: 15px;
+      padding: 1.2rem 2rem;
+      margin: 2rem auto;
+      max-width: 1000px;
+      text-align: center;
+      box-shadow: 0 4px 15px rgba(0,0,0,0.2);
+      position: relative;
+      animation: gentlePulse 3s ease-in-out infinite;
+    }
+    @keyframes gentlePulse {
+      0%, 100% { transform: scale(1); }
+      50% { transform: scale(1.01); }
+    }
+    .notice-banner::before {
+      content: '📜';
+      font-size: 2rem;
+      margin-right: 0.5rem;
+      vertical-align: middle;
+    }
+    .notice-banner strong {
+      color: #0A2E78;
+      font-size: 1.1rem;
+    }
+    .notice-banner p {
+      margin-top: 0.5rem;
+      color: #082459;
+      font-weight: 500;
+    }
+
+    /* ===== VILLAGE DECORATION ===== */
+    .village-scene {
+      max-width: 1200px;
+      margin: 0 auto;
+      padding: 0 2rem 2rem;
+      display: flex;
+      justify-content: space-around;
+      align-items: flex-end;
+      height: 80px;
+      opacity: 0.6;
+    }
+    .bamboo-tree {
+      font-size: 4rem;
+      animation: sway 4s ease-in-out infinite;
+    }
+    .bamboo-tree:nth-child(2) { animation-delay: 0.5s; font-size: 3.5rem; }
+    .bamboo-tree:nth-child(3) { animation-delay: 1s; font-size: 4.2rem; }
+    .bamboo-tree:nth-child(4) { animation-delay: 1.5s; font-size: 3.8rem; }
+    @keyframes sway {
+      0%, 100% { transform: rotate(-3deg); }
+      50% { transform: rotate(3deg); }
+    }
+
+    /* ===== MAIN LAYOUT ===== */
+    .container {
+      max-width: 1000px;
+      margin: 0 auto;
+      padding: 0 1.5rem 3rem;
+    }
+
+    /* ===== POEM CARD ===== */
+    .card {
+      background: linear-gradient(180deg, #FFF8E1 0%, #FFECB3 100%);
+      border: 3px solid #8D6E63;
+      border-radius: 20px;
+      box-shadow: 0 8px 25px rgba(62, 39, 35, 0.25);
+      padding: 2rem;
+      margin-bottom: 2.5rem;
+      position: relative;
+      transition: all 0.3s;
+      overflow: hidden;
+    }
+    .card::before {
+      content: '';
+      position: absolute;
+      top: 0;
+      left: 0;
+      right: 0;
+      height: 8px;
+      background: repeating-linear-gradient(
+        90deg,
+        #8D6E63 0px,
+        #A1887F 8px,
+        #8D6E63 16px
+      );
+    }
+    .card:hover {
+      transform: translateY(-5px);
+      box-shadow: 0 12px 35px rgba(62, 39, 35, 0.35);
+    }
+    .card-header {
+      display: flex;
+      justify-content: space-between;
+      align-items: flex-start;
+      margin-bottom: 1.5rem;
+      padding-bottom: 1rem;
+      border-bottom: 2px dashed #BCAAA4;
+      flex-wrap: wrap;
+      gap: 1rem;
+    }
+    .poem-info h3 {
+      color: #5D4037;
+      font-size: 1.4rem;
+      margin-bottom: 0.3rem;
+      display: flex;
+      align-items: center;
+      gap: 0.5rem;
+    }
+    .poem-meta {
+      color: #8D6E63;
+      font-size: 0.9rem;
+      font-style: italic;
+    }
+    .poem-badge {
+      background: #D7CCC8;
+      color: #5D4037;
+      padding: 0.3rem 0.8rem;
+      border-radius: 20px;
+      font-size: 0.85rem;
+      font-weight: 600;
+      border: 2px solid #8D6E63;
+    }
+
+    /* ===== PROSE CONTEXT ===== */
+    .prose-context {
+      background: rgba(255,255,255,0.85);
+      border-left: 4px solid #A1887F;
+      padding: 1.2rem 1.5rem;
+      margin-bottom: 1.5rem;
+      border-radius: 0 12px 12px 0;
+      font-size: 0.95rem;
+      line-height: 1.9;
+      color: #3E2723;
+      text-align: justify;
+    }
+    .prose-context strong {
+      color: #5D4037;
+    }
+    .prose-context em {
+      color: #6D4C41;
+      font-style: italic;
+    }
+    .prose-context .quote {
+      display: block;
+      margin: 0.8rem 0;
+      padding-left: 1rem;
+      border-left: 3px solid #FFA726;
+      font-style: italic;
+      color: #5D4037;
+    }
+
+    /* ===== POEM CONTENT ===== */
+    .poem-content {
+      font-size: 1.3rem;
+      line-height: 2.2;
+      text-align: center;
+      margin: 1.5rem 0;
+      padding: 1.8rem;
+      background: rgba(255,255,255,0.9);
+      border-radius: 15px;
+      border: 2px solid #D7CCC8;
+      white-space: pre-line;
+      font-weight: 500;
+      color: #3E2723;
+      position: relative;
+      box-shadow: inset 0 2px 10px rgba(0,0,0,0.05);
+    }
+    .poem-content::before {
+      content: '"';
+      position: absolute;
+      top: 10px;
+      left: 20px;
+      font-size: 4rem;
+      color: #BCAAA4;
+      opacity: 0.4;
+      font-family: Georgia, serif;
+      line-height: 1;
+    }
+    .poem-content::after {
+      content: '"';
+      position: absolute;
+      bottom: -10px;
+      right: 20px;
+      font-size: 4rem;
+      color: #BCAAA4;
+      opacity: 0.4;
+      font-family: Georgia, serif;
+      line-height: 1;
+    }
+
+    /* ===== ACTION BUTTONS ===== */
+    .actions {
+      display: flex;
+      gap: 0.7rem;
+      flex-wrap: wrap;
+      margin-top: 1.5rem;
+      padding-top: 1.2rem;
+      border-top: 2px dashed #BCAAA4;
+    }
+    .btn {
+      display: flex;
+      align-items: center;
+      gap: 0.4rem;
+      padding: 0.6rem 1.2rem;
+      border: 2px solid #8D6E63;
+      border-radius: 25px;
+      background: #FFF8E1;
+      color: #5D4037;
+      font-size: 0.95rem;
+      font-weight: 600;
+      cursor: pointer;
+      transition: all 0.3s;
+      font-family: inherit;
+    }
+    .btn:hover {
+      background: #8D6E63;
+      color: #FFF8E1;
+      transform: translateY(-2px);
+      box-shadow: 0 4px 12px rgba(0,0,0,0.2);
+    }
+    .btn.copy { 
+      background: #4FC3F7; 
+      border-color: #0288D1;
+      color: #01579B;
+    }
+    .btn.copy:hover { 
+      background: #0288D1; 
+      color: white;
+    }
+    .btn.comment { 
+      background: #81C784; 
+      border-color: #388E3C;
+      color: #1B5E20;
+    }
+    .btn.comment:hover { 
+      background: #388E3C; 
+      color: white;
+    }
+
+    /* ===== COMMENTS SECTION ===== */
+    .comments-section {
+      margin-top: 1.5rem;
+      background: rgba(255,255,255,0.7);
+      border-radius: 15px;
+      padding: 1.2rem;
+      border: 2px solid #D7CCC8;
+    }
+    .comment-title {
+      font-weight: 700;
+      color: #5D4037;
+      margin-bottom: 1rem;
+      display: flex;
+      align-items: center;
+      gap: 0.5rem;
+      font-size: 1.1rem;
+    }
+    .edit-instruction {
+      background: #C8E6C9;
+      border: 2px solid #66BB6A;
+      border-radius: 10px;
+      padding: 0.8rem;
+      margin-bottom: 1rem;
+      font-size: 0.9rem;
+      color: #2E7D32;
+      font-weight: 500;
+    }
+    .edit-instruction strong {
+      color: #1B5E20;
+    }
+    .comment-input {
+      width: 100%;
+      padding: 0.9rem 1.2rem;
+      border: 2px solid #BCAAA4;
+      border-radius: 12px;
+      margin-bottom: 0.8rem;
+      font-size: 1rem;
+      font-family: inherit;
+      background: white;
+      resize: vertical;
+      min-height: 80px;
+    }
+    .comment-input:focus {
+      outline: none;
+      border-color: #8D6E63;
+      box-shadow: 0 0 0 3px rgba(141, 110, 99, 0.2);
+    }
+    .btn-submit {
+      background: #7CB342;
+      color: white;
+      border: none;
+      padding: 0.7rem 1.5rem;
+      border-radius: 25px;
+      font-weight: 600;
+      cursor: pointer;
+      font-size: 1rem;
+      transition: all 0.3s;
+    }
+    .btn-submit:hover {
+      background: #558B2F;
+      transform: translateY(-2px);
+      box-shadow: 0 4px 12px rgba(0,0,0,0.2);
+    }
+    .comment-list {
+      margin-top: 1.2rem;
+      max-height: 300px;
+      overflow-y: auto;
+      padding-right: 0.5rem;
+    }
+    .comment-item {
+      background: white;
+      border: 2px solid #EFEBE9;
+      border-radius: 12px;
+      padding: 1rem;
+      margin-bottom: 0.8rem;
+      position: relative;
+    }
+    .comment-item::before {
+      content: '✍️';
+      position: absolute;
+      top: 8px;
+      right: 10px;
+      font-size: 1.2rem;
+    }
+    .comment-author {
+      font-weight: 700;
+      color: #5D4037;
+      margin-bottom: 0.4rem;
+      display: flex;
+      align-items: center;
+      gap: 0.4rem;
+    }
+    .comment-date {
+      font-size: 0.8rem;
+      color: #8D6E63;
+      font-weight: 400;
+    }
+    .comment-text {
+      color: #4E342E;
+      line-height: 1.7;
+      font-size: 0.95rem;
+      white-space: pre-line;
+    }
+    .suggested-edit {
+      background: #FFF3E0;
+      border-left: 4px solid #FF9800;
+      padding: 0.8rem;
+      margin-top: 0.6rem;
+      border-radius: 0 8px 8px 0;
+      font-family: 'Courier New', monospace;
+      font-size: 0.9rem;
+    }
+    .suggested-edit-label {
+      font-weight: 700;
+      color: #E65100;
+      font-size: 0.85rem;
+      margin-bottom: 0.3rem;
+    }
+
+    /* ===== SIDEBAR DECORATION ===== */
+    .deco-section {
+      text-align: center;
+      padding: 2rem;
+      background: linear-gradient(135deg, rgba(255,248,225,0.9), rgba(255,236,179,0.9));
+      border: 3px solid #8D6E63;
+      border-radius: 20px;
+      margin: 2rem 0;
+      box-shadow: 0 6px 20px rgba(0,0,0,0.15);
+    }
+    .deco-section h3 {
+      color: #5D4037;
+      font-size: 1.5rem;
+      margin-bottom: 1rem;
+    }
+    .deco-icons {
+      font-size: 3rem;
+      margin: 1rem 0;
+      letter-spacing: 1rem;
+    }
+
+    /* ===== FOOTER ===== */
+    footer {
+      background: linear-gradient(135deg, #5D4037, #3E2723);
+      color: #D7CCC8;
+      text-align: center;
+      padding: 2.5rem 2rem;
+      margin-top: 3rem;
+      border-top: 8px solid #8D6E63;
+      position: relative;
+    }
+    footer::before {
+      content: '🏡  🎋';
+      position: absolute;
+      top: -15px;
+      left: 50%;
+      transform: translateX(-50%);
+      background: #5D4037;
+      padding: 0 2rem;
+      font-size: 1.5rem;
+    }
+    footer p {
+      margin: 0.5rem 0;
+    }
+    .footer-heart {
+      color: #EF5350;
+      font-size: 1.3rem;
+      margin: 1rem 0;
+    }
+
+    /* ===== TOAST NOTIFICATION ===== */
+    .toast {
+      position: fixed;
+      bottom: 2rem;
+      right: 2rem;
+      background: linear-gradient(135deg, #5D4037, #8D6E63);
+      color: #FFF8E1;
+      padding: 1rem 1.8rem;
+      border-radius: 12px;
+      box-shadow: 0 6px 20px rgba(0,0,0,0.3);
+      transform: translateX(200%);
+      transition: transform 0.3s ease;
+      z-index: 2000;
+      font-weight: 600;
+      border: 2px solid #D7CCC8;
+      display: flex;
+      align-items: center;
+      gap: 0.7rem;
+    }
+    .toast.show {
+      transform: translateX(0);
+    }
+
+    /* ===== UTILITIES ===== */
+    .hidden { display: none !important; }
+    .text-center { text-align: center; }
+    .mt-2 { margin-top: 2rem; }
+
+    /* ===== ANIMATIONS ===== */
+    @keyframes fadeIn {
+      from { opacity: 0; transform: translateY(20px); }
+      to { opacity: 1; transform: translateY(0); }
+    }
+    .animate {
+      animation: fadeIn 0.6s ease forwards;
+    }
+
+    /* ===== SCROLLBAR ===== */
+    ::-webkit-scrollbar {
+      width: 10px;
+    }
+    ::-webkit-scrollbar-track {
+      background: #EFEBE9;
+      border-radius: 10px;
+    }
+    ::-webkit-scrollbar-thumb {
+      background: #8D6E63;
+      border-radius: 10px;
+    }
+    ::-webkit-scrollbar-thumb:hover {
+      background: #5D4037;
+    }
+
+    /* ===== RESPONSIVE ===== */
+    @media (max-width: 768px) {
+      .header-content {
+        flex-direction: column;
+        text-align: center;
+      }
+      nav a {
+        margin: 0.3rem 0.5rem;
+      }
+      .logo-text h1 {
+        font-size: 1.6rem;
+      }
+      .poem-content {
+        font-size: 1.1rem;
+        padding: 1.2rem;
+      }
+      .card {
+        padding: 1.2rem;
+      }
+      .prose-context {
+        font-size: 0.9rem;
+        line-height: 1.8;
+      }
+    }
+  </style>
+</head>
+<body>
+
+  <!-- ===== HEADER ===== -->
+  <header>
+    <div class="header-content">
+      <div class="logo">
+        <span class="logo-icon">🏡</span>
+        <div class="logo-text">
+          <h1>Thơ Vô Chủ</h1>
+          <p>thovochu.com • Hồn quê trong từng vần thơ</p>
+        </div>
+      </div>
+      <nav>
+        <a href="#"> Trang chủ</a>
+        <a href="#">📜 Kho thơ</a>
+        <a href="#">✍️ Hướng dẫn</a>
+        <a href="#">💬 Liên hệ</a>
+      </nav>
+    </div>
+  </header>
+
+  <!-- ===== NOTICE BANNER ===== -->
+  <div class="notice-banner">
+    <strong>📌 THÔNG BÁO QUAN TRỌNG</strong>
+    <p>Tất cả thơ trên trang này do <strong>AI tạo ra</strong>, <strong>không có bản quyền</strong>. Quý vị thoải mái chỉnh sửa, góp ý qua phần bình luận để hoàn thiện từng vần thơ lục bát! 🌾</p>
+  </div>
+
+  <!-- ===== VILLAGE DECORATION ===== -->
+  <div class="village-scene">
+    <div class="bamboo-tree">🎋</div>
+    <div class="bamboo-tree">🎍</div>
+    <div class="bamboo-tree">🎋</div>
+    <div class="bamboo-tree">🌾</div>
+    <div class="bamboo-tree">🎋</div>
+  </div>
+
+  <!-- ===== MAIN CONTENT ===== -->
+  <div class="container">
+
+    <!-- POEM 1 -->
+    <article class="card animate" id="post1">
+      <div class="card-header">
+        <div class="poem-info">
+          <h3>📖 Bài 1: Gia cảnh thầy tôi</h3>
+          <div class="poem-meta">Chủ đề: Gia đình • Thể lục bát</div>
+        </div>
+        <span class="poem-badge">🤖 Thơ AI</span>
+      </div>
+      
+      <div class="prose-context">
+        <strong>💭 Ngữ cảnh:</strong> Gia cảnh đông con, nghèo đói không làm thầy tôi lo lắng mà hình như có mối liên hệ sâu xa từ thời ông bà nội tôi.
+      </div>
+      
+      <div class="poem-content" id="poem1">
+Gia cảnh dẫu có bần hàn,
+Thầy tôi chẳng chút tâm can lo phiền.
+Cội nguồn sâu thẳm tổ tiên,
+Ông bà nội đã truân chuyên một thời.
+      </div>
+      
+      <div class="actions">
+        <button class="btn copy" onclick="copyPoem('poem1')">📋 Copy thơ</button>
+        <button class="btn comment" onclick="toggleComment('commentBox1')">✍️ Góp ý sửa thơ</button>
+      </div>
+      
+      <!-- Comments/Edit Section -->
+      <div class="comments-section hidden" id="commentBox1">
+        <div class="comment-title">💬 Góp ý chỉnh sửa bài thơ</div>
+        <div class="edit-instruction">
+          <strong>📝 Hướng dẫn:</strong> Quý vị hãy viết câu thơ muốn sửa theo format:<br>
+          <strong>Dòng gốc:</strong> [câu thơ gốc]<br>
+          <strong>Đề xuất:</strong> [câu thơ sửa]
+        </div>
+        <textarea class="comment-input" id="input1" placeholder="Ví dụ:
+Dòng gốc: Gia cảnh dẫu có bần hàn
+Đề xuất: Gia cảnh dầu còn khó khăn
+
+Hoặc viết lời bình, góp ý chung về bài thơ..."></textarea>
+        <button class="btn-submit" onclick="submitComment('input1', 'commentList1', 'Nguyễn Hữu Nghị')">💚 Gửi góp ý</button>
+        
+        <div class="comment-list" id="commentList1">
+          <div class="comment-item">
+            <div class="comment-author">
+              <span>👤 Trần Văn Minh</span>
+              <span class="comment-date">• 2 giờ trước</span>
+            </div>
+            <div class="comment-text">
+              Câu 2 mình thấy có thể sửa cho mượt hơn:
+              <div class="suggested-edit">
+                <div class="suggested-edit-label">Đề xuất:</div>
+                <strong>Dòng gốc:</strong> Thầy tôi chẳng chút tâm can lo phiền<br>
+                <strong>Đề xuất:</strong> Thầy tôi chẳng bận tâm phiền lo âu
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </article>
+
+    <!-- POEM 2 -->
+    <article class="card animate" id="post2" style="animation-delay: 0.1s">
+      <div class="card-header">
+        <div class="poem-info">
+          <h3>📖 Bài 2: Mẹ tôi chạy ngược</h3>
+          <div class="poem-meta">Chủ đề: Mẹ & Quê hương • Thể lục bát</div>
+        </div>
+        <span class="poem-badge">🤖 Thơ AI</span>
+      </div>
+      
+      <div class="prose-context">
+        <strong>💭 Ngữ cảnh:</strong> Công việc chợ búa gắn liền với đổi chác với dân miền núi phía tây, ở làng tôi gọi là "Lên Ngược" - "Chạy Ngược". Tức là người dưới Xuôi đem những sản vật vùng xuôi, các đồ dùng sinh hoạt lên miền ngược - miền núi - chủ yếu là Thạch Thành - vùng dân tộc ít người - là Dân tộc Mường, bán hoặc đổi lấy sản vật miền núi, đem về xuôi để dùng hay đem đi chợ bán lấy tiền, lấy công làm lãi,… cứ thế thành công việc, thành nghề quen gọi là "Chạy Ngược"
+      </div>
+      
+      <div class="poem-content" id="poem2">
+Mẹ tôi quang gánh đường xa,
+Lên miền sơn cước giao thoa chợ chiều.
+Thạch Thành dốc núi bao nhiêu,
+Gặp người Mường bản trao điều mến thương.
+Đổi đồ lấy vị quê hương,
+Ngược xuôi buôn bán trăm đường gian nan.
+Lấy công làm lãi cưu mang,
+Nghề tên "Chạy Ngược" băng ngàn dặm xa.
+      </div>
+      
+      <div class="actions">
+        <button class="btn copy" onclick="copyPoem('poem2')">📋 Copy thơ</button>
+        <button class="btn comment" onclick="toggleComment('commentBox2')">✍️ Góp ý sửa thơ</button>
+      </div>
+      
+      <div class="comments-section hidden" id="commentBox2">
+        <div class="comment-title">💬 Góp ý chỉnh sửa bài thơ</div>
+        <div class="edit-instruction">
+          <strong>📝 Hướng dẫn:</strong> Quý vị hãy viết câu thơ muốn sửa theo format:<br>
+          <strong>Dòng gốc:</strong> [câu thơ gốc]<br>
+          <strong>Đề xuất:</strong> [câu thơ sửa]
+        </div>
+        <textarea class="comment-input" id="input2" placeholder="Viết góp ý chỉnh sửa của quý vị tại đây..."></textarea>
+        <button class="btn-submit" onclick="submitComment('input2', 'commentList2', 'Nguyễn Hữu Nghị')">💚 Gửi góp ý</button>
+        
+        <div class="comment-list" id="commentList2">
+          <!-- Comments will appear here -->
+        </div>
+      </div>
+    </article>
+
+    <!-- POEM 3 -->
+    <article class="card animate" id="post3" style="animation-delay: 0.2s">
+      <div class="card-header">
+        <div class="poem-info">
+          <h3>📖 Bài 3: Mẹ làm bánh</h3>
+          <div class="poem-meta">Chủ đề: Mẹ & Đam mê • Thể lục bát</div>
+        </div>
+        <span class="poem-badge">🤖 Thơ AI</span>
+      </div>
+      
+      <div class="prose-context">
+        <strong>💭 Ngữ cảnh:</strong> Hình như mãi tới khi Tám mươi tuổi, không Chạy ngược nữa, Mẹ vẫn duy trì làm bánh để bán mỗi phiên Chợ nhà. Làm bánh cứ như là niềm đam mê của Mẹ, thường thì quá nửa đêm mới xong việc, sáng tinh mơ Mẹ đã thức rồi. Cứ như thế, trừ những ngày mưa bão, ngày này qua ngày khác, quanh năm, chẳng hiểu mỗi đêm Mẹ ngủ được mấy tiếng đồng hồ?
+      </div>
+      
+      <div class="poem-content" id="poem3">
+Tám mươi tuổi, dẫu mỏi mòn
+Mẹ thôi chạy ngược, vẫn còn say mê
+Làm từng mẻ bánh thôn quê
+Bán phiên chợ sáng, dãi dề nắng sương
+Nửa đêm nhào nặn yêu thương
+Tinh mơ mẹ thức, vấn vương tơ lòng
+Quanh năm mưa nắng đèo bồng
+Hỏi đêm mẹ ngủ được không mấy giờ?
+      </div>
+      
+      <div class="actions">
+        <button class="btn copy" onclick="copyPoem('poem3')">📋 Copy thơ</button>
+        <button class="btn comment" onclick="toggleComment('commentBox3')">✍️ Góp ý sửa thơ</button>
+      </div>
+      
+      <div class="comments-section hidden" id="commentBox3">
+        <div class="comment-title">💬 Góp ý chỉnh sửa bài thơ</div>
+        <div class="edit-instruction">
+          <strong>📝 Hướng dẫn:</strong> Quý vị hãy viết câu thơ muốn sửa theo format:<br>
+          <strong>Dòng gốc:</strong> [câu thơ gốc]<br>
+          <strong>Đề xuất:</strong> [câu thơ sửa]
+        </div>
+        <textarea class="comment-input" id="input3" placeholder="Viết góp ý chỉnh sửa của quý vị tại đây..."></textarea>
+        <button class="btn-submit" onclick="submitComment('input3', 'commentList3', 'Nguyễn Hữu Nghị')">💚 Gửi góp ý</button>
+        
+        <div class="comment-list" id="commentList3">
+          <!-- Comments will appear here -->
+        </div>
+      </div>
+    </article>
+
+    <!-- POEM 4 -->
+    <article class="card animate" id="post4" style="animation-delay: 0.3s">
+      <div class="card-header">
+        <div class="poem-info">
+          <h3>📖 Bài 4: Bom Pháp rải thảm</h3>
+          <div class="poem-meta">Chủ đề: Lịch sử & Quê hương • Thể lục bát</div>
+        </div>
+        <span class="poem-badge">🤖 Thơ AI</span>
+      </div>
+      
+      <div class="prose-context">
+        <strong>💭 Ngữ cảnh:</strong> Cho đến năm 1954, làng tôi bị bom Pháp rải thảm, đình làng bị đánh tan nát đến nỗi không còn nguyên vật liệu để phục dựng lại được. Một số nhà riêng cũng bị bom rải thảm, trong đó có nhà tôi, đều bị đánh sập. Mãi tới năm 1958, thầy mẹ tôi mới dựng lại được ngôi nhà 5 gian như cũ, nhưng mái lợp bằng tranh.
+      </div>
+      
+      <div class="poem-content" id="poem4">
+Năm xưa một chín năm tư,
+Bom thù rải thảm nát nhừ cỏ non.
+Đình làng gạch ngói mỏi mòn,
+Tan tành bão lửa, chẳng còn gốc xưa.
+Nhà tôi chung cảnh nắng mưa,
+Bom rơi đạn lạc đổ bừa xót xa.
+Năm năm tám, tháng ngày qua,
+Thầy u mới dựng lại nhà năm gian.
+Mái tranh lợp dẫu nghèo nàn,
+Vẫn ươm hơi ấm nồng nàn quê hương.
+      </div>
+      
+      <div class="actions">
+        <button class="btn copy" onclick="copyPoem('poem4')">📋 Copy thơ</button>
+        <button class="btn comment" onclick="toggleComment('commentBox4')">✍️ Góp ý sửa thơ</button>
+      </div>
+      
+      <div class="comments-section hidden" id="commentBox4">
+        <div class="comment-title">💬 Góp ý chỉnh sửa bài thơ</div>
+        <div class="edit-instruction">
+          <strong>📝 Hướng dẫn:</strong> Quý vị hãy viết câu thơ muốn sửa theo format:<br>
+          <strong>Dòng gốc:</strong> [câu thơ gốc]<br>
+          <strong>Đề xuất:</strong> [câu thơ sửa]
+        </div>
+        <textarea class="comment-input" id="input4" placeholder="Viết góp ý chỉnh sửa của quý vị tại đây..."></textarea>
+        <button class="btn-submit" onclick="submitComment('input4', 'commentList4', 'Nguyễn Hữu Nghị')">💚 Gửi góp ý</button>
+        
+        <div class="comment-list" id="commentList4">
+          <!-- Comments will appear here -->
+        </div>
+      </div>
+    </article>
+
+    <!-- POEM 5 - UPDATED CONTEXT -->
+    <article class="card animate" id="post5" style="animation-delay: 0.4s">
+      <div class="card-header">
+        <div class="poem-info">
+          <h3>📖 Bài 5: Duyên chiều</h3>
+          <div class="poem-meta">Chủ đề: Tình yêu & Tuổi già • Thể lục bát</div>
+        </div>
+        <span class="poem-badge">🤖 Thơ AI</span>
+      </div>
+      
+      <div class="prose-context">
+        <strong>💭 Ngữ cảnh:</strong> <em>Đây là kể về một cô làm nghề chăm sóc người đột quỵ và già yếu qua lời kể của một nhà văn:</em><br><br>
+        
+        Kể cũng lạ, niềm vui, cũng coi như hạnh phúc, đến không ngờ, cũng không lý giải được cái hạnh phúc mà cô được hưởng chỉ sau vài năm về sống ở cái vùng quê kiểng, yên bình này từ một người Cựu chiến binh. Đó cũng được coi như là chuyện tình cảm của một người đàn ông với một người đàn bà. Đó là thứ tình cảm ly kì mà cô nhận được từ ông, một Cựu chiến binh, Thương binh ngoài Chín mươi tuổi, vợ mất đã lâu, sống với đứa cháu trai, ở xã bên cạnh. Khi khoẻ thì ông đi xe đạp điện, năm Chín ba, Chín tư tuổi đi xe đạp. Ông thường đến thăm ông bạn, đồng đội gần nhà cô, tình cờ khi ông gặp cô tại nhà người bạn già ấy. Chẳng biết ông hàng xóm nói cho ông biết những gì về hoàn cảnh của cô,… thế là từ đấy, chẳng hiểu sao ông lại quí mến, thân thương với cô như thế. Ông xưng mình là Em, gọi cô là Chị, cái âm thanh giao tiếp Chị - Em, vang lên từ ông đến tự nhiên, ngọt lịm đến vậy. Cô bảo: <em>"Ông đừng gọi thế, cháu ngại lắm!"</em> Ông vẫn cười hì hì … và rồi ông vẫn cứ xưng như thế.<br><br>
+        
+        Và như thường lệ, đều đặn tháng nào cũng thế, cứ sau khi lĩnh lương tháng xong, ông lại xuống nhà đồng đội cùng đi làm thiện nguyện. Lần đầu ông gọi:<br>
+        <span class="quote">"Chị ơi, hôm nay Em có quà cho Chị!"</span>
+        Ông đưa cái phong bì cho cô, cô rụt rè không dám nhận, vì chẳng hiểu duyên cớ, và món quà trong phong bao là gì, vả lại cô cũng mới quen ông. Ông năn nỉ: <em>"Thì chị cứ nhận đi, đây là tấm lòng của Em, Chị nhận đi cho Em vui! Em tên là Chi, vẫn giúp đỡ nhiều người có hoàn cảnh khó khăn, Chị cũng vất vả lắm mà"</em>. Cô bảo: <em>"Thế thì cháu chỉ nhận lần này thôi nhé!"</em>. Ông cười hì hì,…<br><br>
+        
+        Tháng nào cũng vậy, khi lấy lương xong, ông lại xuống nhà cô, lúc cô ở nhà, ông gửi phong bao qua hàng rào, khi không gặp cô, ông lại nhờ ông bạn trao lại cho cô. Dù là ông hơi lảng tai, nhưng cứ thường xuyên gọi điện thoại cho cô, chỉ vài câu hỏi thăm sức khoẻ, và chỉ cần cô bắt máy, nói điều gì đó, dù không hiểu hết cô nói gì, nhưng cứ nghe tiếng cô là ông vui rồi. Có lần ông hỏi: <em>"Chị đã vào Hội Người cao tuổi chưa, để Em tặng Chị bộ áo dài đỏ để mặc khi dự hội!"</em>.<br><br>
+        
+        Và rồi cứ hễ đi đâu xa về hay có quà gì quí giá, ông cũng xuống nhà tặng cô. Có lần, ông hồ hởi gọi cô nhận quà, ông bảo: <em>"Em vừa đi điều dưỡng ở Sầm Sơn về, có quà cho Chị đây!"</em>. Ông mở gói quà và sung sướng nói: <em>"Ở Sầm Sơn có nhiều thứ, nhưng Em chọn quà này hợp với cảnh Chị!"</em>. Đó là Chiếc thuyền buồm đẹp, thon thả, nên thơ, không lái …<br><br>
+        
+        Một ông già gần trăm tuổi, một phụ nữ tuổi gần sáu mươi và mỗi lần gặp, người ta vẫn thường nghe cái âm thanh thân mật, quen thuộc Chị - Em nơi ông và Ông - Cháu từ cô. Mãi rồi cũng quen, ai cũng thấy mừng, thấy dễ chịu, cảm thương, trân trọng mỗi khi nhìn thấy họ gặp nhau. Mỗi dịp gặp nhau không tay bắt, không tiếp xúc da thịt, nhưng trên đôi mắt, khuôn mặt ông rạng ngời hạnh phúc. Không biết có phải cô đơn, tuổi xế chiều vắng bóng bạn đời, hay cái tính bản thiện nơi con người, càng về già càng vô tư, hồn nhiên, thơ trẻ trở lại…. Cô cầu mong ông cứ vui như thế trong quãng đời còn lại, dù là ngắn ngủi - tính ngày, tính tháng…
+      </div>
+      
+      <div class="poem-content" id="poem5">
+Ngẫm xem nhan sắc hồng trần,
+Hay là thiện ý gieo vần thương yêu?
+Duyên đâu hẹn buổi xế chiều,
+Để cho hai bóng cô liêu lại gần.
+Chuyện rằng ở chốn thôn dân,
+Cựu binh chín chục, muôn phần vui tươi.
+Gặp cô sáu chục tuổi đời,
+Lạ thay tiếng gọi, dịu lời "Chị - Em".
+Ngọt ngào như mật mới nêm,
+Ông xưng là bé, tôn thêm chị hiền.
+Ngỡ ngàng, cô thấy chẳng quen,
+Ông cười: "Gọi thế cho quên tuổi già!"
+Mỗi khi lương lĩnh về nhà,
+Ông mang quà nhỏ, đi qua gửi liền.
+Dù là chút ít bạc tiền,
+"Lòng em thơm thảo, chị hiền nhận cho!"
+      </div>
+      
+      <div class="actions">
+        <button class="btn copy" onclick="copyPoem('poem5')">📋 Copy thơ</button>
+        <button class="btn comment" onclick="toggleComment('commentBox5')">✍️ Góp ý sửa thơ</button>
+      </div>
+      
+      <div class="comments-section hidden" id="commentBox5">
+        <div class="comment-title">💬 Góp ý chỉnh sửa bài thơ</div>
+        <div class="edit-instruction">
+          <strong>📝 Hướng dẫn:</strong> Quý vị hãy viết câu thơ muốn sửa theo format:<br>
+          <strong>Dòng gốc:</strong> [câu thơ gốc]<br>
+          <strong>Đề xuất:</strong> [câu thơ sửa]
+        </div>
+        <textarea class="comment-input" id="input5" placeholder="Viết góp ý chỉnh sửa của quý vị tại đây..."></textarea>
+        <button class="btn-submit" onclick="submitComment('input5', 'commentList5', 'Nguyễn Hữu Nghị')">💚 Gửi góp ý</button>
+        
+        <div class="comment-list" id="commentList5">
+          <!-- Comments will appear here -->
+        </div>
+      </div>
+    </article>
+
+    <!-- DECORATIVE SECTION -->
+    <div class="deco-section animate" style="animation-delay: 0.5s">
+      <h3>🌾 Thơ Vô Chủ - Nơi gieo vần quê hương</h3>
+      <div class="deco-icons">🏡  🌾 ️ 🌻</div>
+      <p style="font-size: 1.1rem; color: #5D4037; line-height: 1.8;">
+        Mỗi bài thơ là một mảnh hồn quê<br>
+        Mỗi góp ý là một tấm lòng vàng<br>
+        <strong>Cùng nhau hoàn thiện, cùng nhau sẻ chia</strong>
+      </p>
+    </div>
+
+  </div>
+
+  <!-- ===== FOOTER ===== -->
+  <footer>
+    <p style="font-size: 1.3rem; font-weight: 600;">🏡 Thơ Vô Chủ • thovochu.com</p>
+    <div class="footer-heart">💚 Được xây dựng với tình yêu quê hương 💚</div>
+    <p>Nền tảng chia sẻ và hoàn thiện thơ lục bát cộng đồng</p>
+    <p style="margin-top: 1rem; font-size: 0.9rem; opacity: 0.9;">
+      🎋 Tất cả thơ do AI tạo • Không bản quyền • Tự do chỉnh sửa 
+    </p>
+    <p style="margin-top: 1.5rem; font-size: 0.85rem;">
+      © 2026 Thơ Vô Chủ • Giữ gìn hồn Việt qua từng vần thơ
+    </p>
+  </footer>
+
+  <!-- ===== TOAST NOTIFICATION ===== -->
+  <div class="toast" id="toast">
+    <span>✅</span>
+    <span id="toastMessage">Đã sao chép thơ!</span>
+  </div>
+
+  <!-- ===== JAVASCRIPT ===== -->
+  <script>
+    // ===== COPY POEM TO CLIPBOARD =====
+    function copyPoem(elementId) {
+      const poem = document.getElementById(elementId);
+      const text = poem.innerText.trim();
+      
+      navigator.clipboard.writeText(text).then(() => {
+        showToast('📋 Đã copy thơ vào clipboard!');
+      }).catch(err => {
+        const textarea = document.createElement('textarea');
+        textarea.value = text;
+        document.body.appendChild(textarea);
+        textarea.select();
+        document.execCommand('copy');
+        document.body.removeChild(textarea);
+        showToast('📋 Đã copy thơ!');
+      });
+    }
+
+    // ===== TOGGLE COMMENTS SECTION =====
+    function toggleComment(boxId) {
+      const box = document.getElementById(boxId);
+      box.classList.toggle('hidden');
+      if (!box.classList.contains('hidden')) {
+        box.querySelector('.comment-input').focus();
+        showToast('✍️ Mời quý vị góp ý!');
+      }
+    }
+
+    // ===== SUBMIT COMMENT/EDIT SUGGESTION =====
+    function submitComment(inputId, listId, authorName) {
+      const input = document.getElementById(inputId);
+      const text = input.value.trim();
+      
+      if (!text) {
+        showToast('⚠️ Vui lòng viết góp ý!');
+        return;
+      }
+      
+      const list = document.getElementById(listId);
+      const commentItem = document.createElement('div');
+      commentItem.className = 'comment-item animate';
+      
+      const now = new Date();
+      const timeString = 'Vừa xong';
+      
+      // Parse suggested edits if present
+      let displayText = escapeHtml(text);
+      const hasSuggestion = text.toLowerCase().includes('dòng gốc') || text.toLowerCase().includes('đề xuất');
+      
+      if (hasSuggestion) {
+        // Format as suggestion
+        const parts = text.split(/dòng gốc:|đề xuất:/i).filter(p => p.trim());
+        if (parts.length >= 2) {
+          displayText = `
+            <div class="suggested-edit">
+              <div class="suggested-edit-label">📝 Đề xuất chỉnh sửa:</div>
+              <strong>Dòng gốc:</strong> ${escapeHtml(parts[0].trim())}<br>
+              <strong>Đề xuất:</strong> ${escapeHtml(parts[1].trim())}
+            </div>
+          `;
+        }
+      }
+      
+      commentItem.innerHTML = `
+        <div class="comment-author">
+          <span>👤 ${escapeHtml(authorName)}</span>
+          <span class="comment-date">• ${timeString}</span>
+        </div>
+        <div class="comment-text">
+          ${displayText}
+        </div>
+      `;
+      
+      list.appendChild(commentItem);
+      input.value = '';
+      list.scrollTop = list.scrollHeight;
+      
+      showToast('💚 Cảm ơn quý vị đã góp ý!');
+    }
+
+    // ===== TOAST NOTIFICATION =====
+    function showToast(message) {
+      const toast = document.getElementById('toast');
+      const toastMessage = document.getElementById('toastMessage');
+      toastMessage.textContent = message;
+      toast.classList.add('show');
+      setTimeout(() => toast.classList.remove('show'), 3000);
+    }
+
+    // ===== ESCAPE HTML FOR SECURITY =====
+    function escapeHtml(text) {
+      const map = {
+        '&': '&amp;',
+        '<': '&lt;',
+        '>': '&gt;',
+        '"': '&quot;',
+        "'": '&#039;'
+      };
+      return text.replace(/[&<>"']/g, m => map[m]);
+    }
+
+    // ===== INITIALIZE =====
+    document.addEventListener('DOMContentLoaded', () => {
+      setTimeout(() => {
+        showToast('🌾 Chào mừng đến với Thơ Vô Chủ!');
+      }, 1000);
+    });
+
+    // ===== ALLOW ENTER KEY TO SUBMIT (with Ctrl/Cmd) =====
+    document.addEventListener('keydown', (e) => {
+      if (e.key === 'Enter' && (e.ctrlKey || e.metaKey)) {
+        const activeElement = document.activeElement;
+        if (activeElement && activeElement.classList.contains('comment-input')) {
+          const inputId = activeElement.id;
+          const listId = inputId.replace('input', 'commentList');
+          submitComment(inputId, listId, 'Nguyễn Hữu Nghị');
+        }
+      }
+    });
+  </script>
+</body>
+</html>
